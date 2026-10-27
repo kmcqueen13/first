@@ -60,8 +60,9 @@ Working **on your own machine**, repeat the demo with your own Quarto file:
     ```{r}
     #file -> new file -> quarto doc
 
-    #library(tidyverse)
-    #library(palmerpenguins)
+    library(tidyverse)
+    install.packages("palmerpenguins")
+    library(palmerpenguins)
     ```
 
 3.  Add **one summary table** (e.g., average bill length by species) and **one plot** of your choosing.
