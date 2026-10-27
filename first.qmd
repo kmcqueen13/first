@@ -15,8 +15,118 @@ Quarto enables you to weave together content and executable code into a finished
   #user.email = "kmm132024@gmail.com"
 #)
 
+#for create repo and push in one step
 #usethis::use_github()
 
 #usethis::create_github_token()
 #gitcreds::gitcreds_set()
+
+2
+
+#to publish as clean webpage: run in terminal:
+#save and commit all
+#quarto publish gh-pages <filename.qmd
+#Check the GitHub Pages settings
+  #On GitHub, open your repository and go to:
+  #Settings → Pages.
+  #Under Build and deployment, choose Deploy from a branch.
+  #Select the gh-pages branch and / (root) folder.
+  #Click Save if you changed the settings.
+  #Once deployment finishes, that Pages settings screen shows   your published website link. Open it to see the rendered     page—not the .qmd source code.
 ```
+
+## Your Turn: Guided Practice
+
+Working **on your own machine**, repeat the demo with your own Quarto file:
+
+1.  New Quarto Project with Git enabled (or add Git to an existing project: `usethis::use_git()`)
+
+    ```{r}
+    #NEW PROJ
+    # file -> new proj -> new directory -> quartro proj -> name -> parent folder -> check create git repo -> create proj -> look for git tab
+
+    #OR:
+      #open a proj and run usethis::use_git() in consol
+    ```
+
+    **ISSUES:**
+
+    No Git tab: check Tools → Project Options → Git/SVN and confirm Git is selected.
+
+    no package: install.packages("usethis")
+
+2.  Create `my_penguins.qmd`. Load `tidyverse` and `palmerpenguins`.
+
+    ```{r}
+    #file -> new file -> quarto doc
+
+    #library(tidyverse)
+    #library(palmerpenguins)
+    ```
+
+3.  Add **one summary table** (e.g., average bill length by species) and **one plot** of your choosing.
+
+    ```{r}
+    #tbl
+    bill_summary <- penguins |>
+      group_by(species) |>
+      summarise(
+        average_bill_length_mm = mean(bill_length_mm, na.rm = TRUE),
+        .groups = "drop"
+      )
+    bill_summary
+
+    #plot
+    penguins |>
+      filter(!is.na(bill_length_mm)) |>
+      ggplot(aes(x = species, y = bill_length_mm, fill = species)) +
+      geom_boxplot(show.legend = FALSE) +
+      labs(
+        title = "Bill length by penguin species",
+        x = "Species",
+        y = "Bill length (mm)"
+      ) +
+      theme_minimal()
+    ```
+
+4.  Render the document to check it works.(each times)
+
+5.  Commit — **at least twice**, with real messages (e.g., once after the table, once after the plot).
+
+    ```{r}
+    #save -> git -> check the box for <>.qmd ->include all for first commit -> commit -> enter real comment -> commit
+    ```
+
+    **ISSUES**
+
+    “Please tell me who you are”:
+
+    --consol: usethis::use_git_config( scope = "user", user.name = "Your First and Last Name", user.email = "your-email\@example.com" )
+
+    -- terminal: git config --global user.name "Your First and Last Name" git config --global user.email "your-email\@example.com"
+
+6.  Run `usethis::use_github()` to create your repo and push.
+
+    --in console
+
+    **ISSUES**
+
+    --bad credentials/no token:
+
+    ----run:
+
+    ```         
+    usethis::create_github_token()
+    ```
+
+    ----then after making:
+
+    ```         
+    gitcreds::gitcreds_set()
+    ```
+
+    ----to make new: 2
+
+7.  Copy your repo URL and submit it to the Canvas discussion thread for today’s class.
+
+    \https[://github.com/YOUR-USERNAME/YOUR-REPOSITORY](https://github.com/YOUR-USERNAME/YOUR-REPOSITORY)\\
